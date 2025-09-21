@@ -1,0 +1,15 @@
+{
+  "name": "go-services",
+  "scripts": {
+    "dev:market-service": "go build -o ./bin/market-service ./market-service && go run ./market-service",
+    "dev:ticker-service": "go build -o ./bin/ticker-service ./ticker-service && go run ./ticker-service",
+    "dev:trade-service": "go build -o ./bin/trade-service ./trade-service && go run ./trade-service",
+    "dev:orderbook-service": "go build -o ./bin/orderbook-service ./orderbook-service && go run ./orderbook-service",
+    "dev": "pnpm run dev:market-service && pnpm run dev:ticker-service && pnpm run dev:trade-service && pnpm run dev:orderbook-service",
+    "build:market-service": "go build -o ./bin/market-service ./market-service",
+    "build:ticker-service": "go build -o ./bin/ticker-service ./ticker-service",
+    "build:trade-service": "go build -o ./bin/trade-service ./trade-service",
+    "build:orderbook-service": "go build -o ./bin/orderbook-service ./orderbook-service",
+    "build": "pnpm run build:market-service && pnpm run build:ticker-service && pnpm run build:trade-service && pnpm run build:orderbook-service"
+  }
+}
