@@ -5,16 +5,12 @@
 // source: ticker.proto
 
 /* eslint-disable */
-import { BinaryReader, BinaryWriter } from '@bufbuild/protobuf/wire';
-import type {
-  handleServerStreamingCall,
-  Metadata,
-  UntypedServiceImplementation,
-} from '@grpc/grpc-js';
-import { GrpcMethod, GrpcStreamMethod } from '@nestjs/microservices';
-import { Observable } from 'rxjs';
+import { BinaryReader, BinaryWriter } from "@bufbuild/protobuf/wire";
+import type { handleServerStreamingCall, Metadata, UntypedServiceImplementation } from "@grpc/grpc-js";
+import { GrpcMethod, GrpcStreamMethod } from "@nestjs/microservices";
+import { Observable } from "rxjs";
 
-export const protobufPackage = 'ticker';
+export const protobufPackage = "ticker";
 
 export interface TickerRequest {
   symbol: string;
@@ -28,26 +24,22 @@ export interface TickerUpdate {
   eventTime: number;
 }
 
-export const TICKER_PACKAGE_NAME = 'ticker';
+export const TICKER_PACKAGE_NAME = "ticker";
 
 function createBaseTickerRequest(): TickerRequest {
-  return { symbol: '' };
+  return { symbol: "" };
 }
 
 export const TickerRequest: MessageFns<TickerRequest> = {
-  encode(
-    message: TickerRequest,
-    writer: BinaryWriter = new BinaryWriter(),
-  ): BinaryWriter {
-    if (message.symbol !== '') {
+  encode(message: TickerRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.symbol !== "") {
       writer.uint32(10).string(message.symbol);
     }
     return writer;
   },
 
   decode(input: BinaryReader | Uint8Array, length?: number): TickerRequest {
-    const reader =
-      input instanceof BinaryReader ? input : new BinaryReader(input);
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseTickerRequest();
     while (reader.pos < end) {
@@ -72,24 +64,21 @@ export const TickerRequest: MessageFns<TickerRequest> = {
 };
 
 function createBaseTickerUpdate(): TickerUpdate {
-  return { exchange: '', symbol: '', price: '', volume: '', eventTime: 0 };
+  return { exchange: "", symbol: "", price: "", volume: "", eventTime: 0 };
 }
 
 export const TickerUpdate: MessageFns<TickerUpdate> = {
-  encode(
-    message: TickerUpdate,
-    writer: BinaryWriter = new BinaryWriter(),
-  ): BinaryWriter {
-    if (message.exchange !== '') {
+  encode(message: TickerUpdate, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.exchange !== "") {
       writer.uint32(10).string(message.exchange);
     }
-    if (message.symbol !== '') {
+    if (message.symbol !== "") {
       writer.uint32(18).string(message.symbol);
     }
-    if (message.price !== '') {
+    if (message.price !== "") {
       writer.uint32(26).string(message.price);
     }
-    if (message.volume !== '') {
+    if (message.volume !== "") {
       writer.uint32(34).string(message.volume);
     }
     if (message.eventTime !== 0) {
@@ -99,8 +88,7 @@ export const TickerUpdate: MessageFns<TickerUpdate> = {
   },
 
   decode(input: BinaryReader | Uint8Array, length?: number): TickerUpdate {
-    const reader =
-      input instanceof BinaryReader ? input : new BinaryReader(input);
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseTickerUpdate();
     while (reader.pos < end) {
@@ -157,64 +145,40 @@ export const TickerUpdate: MessageFns<TickerUpdate> = {
 };
 
 export interface TickerServiceClient {
-  streamTicker(
-    request: TickerRequest,
-    metadata?: Metadata,
-  ): Observable<TickerUpdate>;
+  streamTicker(request: TickerRequest, metadata?: Metadata): Observable<TickerUpdate>;
 }
 
 export interface TickerServiceController {
-  streamTicker(
-    request: TickerRequest,
-    metadata?: Metadata,
-  ): Observable<TickerUpdate>;
+  streamTicker(request: TickerRequest, metadata?: Metadata): Observable<TickerUpdate>;
 }
 
 export function TickerServiceControllerMethods() {
   return function (constructor: Function) {
-    const grpcMethods: string[] = ['streamTicker'];
+    const grpcMethods: string[] = ["streamTicker"];
     for (const method of grpcMethods) {
-      const descriptor: any = Reflect.getOwnPropertyDescriptor(
-        constructor.prototype,
-        method,
-      );
-      GrpcMethod('TickerService', method)(
-        constructor.prototype[method],
-        method,
-        descriptor,
-      );
+      const descriptor: any = Reflect.getOwnPropertyDescriptor(constructor.prototype, method);
+      GrpcMethod("TickerService", method)(constructor.prototype[method], method, descriptor);
     }
     const grpcStreamMethods: string[] = [];
     for (const method of grpcStreamMethods) {
-      const descriptor: any = Reflect.getOwnPropertyDescriptor(
-        constructor.prototype,
-        method,
-      );
-      GrpcStreamMethod('TickerService', method)(
-        constructor.prototype[method],
-        method,
-        descriptor,
-      );
+      const descriptor: any = Reflect.getOwnPropertyDescriptor(constructor.prototype, method);
+      GrpcStreamMethod("TickerService", method)(constructor.prototype[method], method, descriptor);
     }
   };
 }
 
-export const TICKER_SERVICE_NAME = 'TickerService';
+export const TICKER_SERVICE_NAME = "TickerService";
 
 export type TickerServiceService = typeof TickerServiceService;
 export const TickerServiceService = {
   streamTicker: {
-    path: '/ticker.TickerService/StreamTicker',
+    path: "/ticker.TickerService/StreamTicker",
     requestStream: false,
     responseStream: true,
-    requestSerialize: (value: TickerRequest): Buffer =>
-      Buffer.from(TickerRequest.encode(value).finish()),
-    requestDeserialize: (value: Buffer): TickerRequest =>
-      TickerRequest.decode(value),
-    responseSerialize: (value: TickerUpdate): Buffer =>
-      Buffer.from(TickerUpdate.encode(value).finish()),
-    responseDeserialize: (value: Buffer): TickerUpdate =>
-      TickerUpdate.decode(value),
+    requestSerialize: (value: TickerRequest): Buffer => Buffer.from(TickerRequest.encode(value).finish()),
+    requestDeserialize: (value: Buffer): TickerRequest => TickerRequest.decode(value),
+    responseSerialize: (value: TickerUpdate): Buffer => Buffer.from(TickerUpdate.encode(value).finish()),
+    responseDeserialize: (value: Buffer): TickerUpdate => TickerUpdate.decode(value),
   },
 } as const;
 
@@ -225,10 +189,10 @@ export interface TickerServiceServer extends UntypedServiceImplementation {
 function longToNumber(int64: { toString(): string }): number {
   const num = globalThis.Number(int64.toString());
   if (num > globalThis.Number.MAX_SAFE_INTEGER) {
-    throw new globalThis.Error('Value is larger than Number.MAX_SAFE_INTEGER');
+    throw new globalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
   }
   if (num < globalThis.Number.MIN_SAFE_INTEGER) {
-    throw new globalThis.Error('Value is smaller than Number.MIN_SAFE_INTEGER');
+    throw new globalThis.Error("Value is smaller than Number.MIN_SAFE_INTEGER");
   }
   return num;
 }

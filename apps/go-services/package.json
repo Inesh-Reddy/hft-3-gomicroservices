@@ -10,6 +10,6 @@
     "build:ticker-service": "go build -o ./bin/ticker-service ./ticker-service",
     "build:trade-service": "go build -o ./bin/trade-service ./trade-service",
     "build:orderbook-service": "go build -o ./bin/orderbook-service ./orderbook-service",
-    "build": "pnpm run build:market-service && pnpm run build:ticker-service && pnpm run build:trade-service && pnpm run build:orderbook-service"
+    "build": "pnpm run build:ticker-service"
   }
 }
