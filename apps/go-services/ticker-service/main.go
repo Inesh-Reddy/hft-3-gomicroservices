@@ -6,18 +6,20 @@ import (
 	"net"
 
 	pb "github.com/Inesh-Reddy/hft-3-gomicroservices/apps/go-services/ticker-service/proto/ticker"
+
 	"github.com/gorilla/websocket"
 	"google.golang.org/grpc"
 )
+
 type TickerServer struct {
 	pb.UnimplementedTickerServiceServer
 }
 
 type BinanceTicker struct {
-	E int64		`json:"E"`
-	S string	`json:"s"`
-	C string	`json:"c"`
-	V string	`json:"v"`
+	E int64   `json:"E"`
+	S string  `json:"s"`
+	C string  `json:"c"`
+	V string  `json:"v"`
 }
 
 func (s *TickerServer) StreamTicker(req *pb.TickerRequest, stream pb.TickerService_StreamTickerServer) error {
@@ -66,21 +68,3 @@ func main() {
 		log.Fatalf("failed to serve: %v", err)
 	}
 }
-
-// func main(){
-// 	fmt.Println(`Ticker Service running......`)
-
-// 	ctx := context.Background()
-// 	log.Println(`Context:`, ctx);
-// 	redis := redis.ConnectToRedis()
-// 	redis.Ping(ctx)
-// 	wes:=ws.ConnectToWs()
-// 	wes.PingHandler();
-// 	_,data,err:=wes.ReadMessage()
-// 	if err != nil {
-// 		log.Fatal("erroredading data from ws:", err)
-// 	}
-// 	log.Println(string(data))
-
-
-// }

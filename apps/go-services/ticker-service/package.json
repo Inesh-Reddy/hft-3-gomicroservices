@@ -1,0 +1,7 @@
+{
+  "name": "tickerservice",
+  "scripts": {
+    "dev": "go run main.go",
+    "build": "go build -o ../bin/ticker-service main.go"
+  }
+}

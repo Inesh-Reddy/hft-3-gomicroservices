@@ -123,6 +123,12 @@ yarn exec turbo link
 pnpm exec turbo link
 ```
 
+##Protobuf
+
+```
+protoc --go_out=. --go-grpc_out=. --proto_path=../../../packages/proto ticker.proto
+```
+
 ## Useful Links
 
 Learn more about the power of Turborepo:

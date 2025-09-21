@@ -1,4 +1,4 @@
-module github.com/hft-3-gomicroservices
+module github.com/Inesh-Reddy/hft-3-gomicroservices/apps/go-services/ticker-service
 
 go 1.24.4
 
